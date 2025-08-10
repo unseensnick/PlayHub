@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Play, Clock, Users, Mountain, FileText, Scissors, Zap, RectangleHorizontal } from "lucide-react";
+import { Trophy, Play, Clock, Users, Mountain, FileText, Scissors, Zap, RectangleHorizontal, Activity } from "lucide-react";
 import Link from "next/link";
 
 const games = [
@@ -41,12 +41,12 @@ const games = [
         id: "snake",
         title: "Snake",
         description: "Guide the snake to collect food and grow longer without hitting the walls or yourself.",
-        icon: Zap,
+        icon: Activity,
         players: "1 Player",
         duration: "5-15 min", 
         difficulty: "Medium",
-        status: "coming-soon",
-        href: "#"
+        status: "available",
+        href: "/snake"
     }
 ];
 
