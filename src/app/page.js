@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Play, Clock, Users, Mountain, FileText, Scissors, Zap } from "lucide-react";
+import { Trophy, Play, Clock, Users, Mountain, FileText, Scissors, Zap, RectangleHorizontal } from "lucide-react";
 import Link from "next/link";
 
 const games = [
@@ -14,6 +14,17 @@ const games = [
         difficulty: "Easy",
         status: "available",
         href: "/rock-paper-scissors"
+    },
+    {
+        id: "pong",
+        title: "Pong",
+        description: "Classic arcade game reimagined. Use your paddle to keep the ball in play and outscore the AI opponent.",
+        icon: RectangleHorizontal,
+        players: "1 Player",
+        duration: "3-8 min",
+        difficulty: "Medium",
+        status: "available",
+        href: "/pong"
     },
     {
         id: "tic-tac-toe",
