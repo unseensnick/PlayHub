@@ -34,8 +34,8 @@ const games = [
         players: "1-2 Players", 
         duration: "1-3 min",
         difficulty: "Easy",
-        status: "coming-soon",
-        href: "#"
+        status: "available",
+        href: "/tic-tac-toe"
     },
     {
         id: "snake",
