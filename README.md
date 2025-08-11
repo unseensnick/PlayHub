@@ -25,7 +25,7 @@ A modern, minimalistic web application showcasing classic minigames with clean d
 
 ## Demo
 
-Visit the live application: [Live Demo](https://your-demo-url.vercel.app)
+Visit the live application: [Live Demo](https://playhub.snickersluring.com)
 
 ## Tech Stack
 

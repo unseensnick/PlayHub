@@ -9,7 +9,6 @@ import {
 import {
     Activity,
     Clock,
-    FileText,
     Mountain,
     Play,
     RectangleHorizontal,
@@ -170,7 +169,7 @@ export default function Home() {
                 {/* Header Section */}
                 <div className="text-center mb-16 space-y-6">
                     <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                        Minigames Collection
+                        PlayHub
                     </h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                         Discover a world of fun with our collection of classic
