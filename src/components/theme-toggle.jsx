@@ -17,8 +17,13 @@ export function ThemeToggle() {
     if (!mounted) {
         // Return a placeholder button during SSR/hydration to prevent mismatch
         return (
-            <Button variant="outline" size="icon" disabled>
-                <div className="size-[1.2rem]" />
+            <Button
+                variant="outline"
+                size="icon"
+                disabled
+                className="h-10 w-10 rounded-xl border-border/50 bg-secondary/30 backdrop-blur-sm"
+            >
+                <div className="h-5 w-5" />
                 <span className="sr-only">Loading theme toggle</span>
             </Button>
         );
@@ -41,17 +46,17 @@ export function ThemeToggle() {
             variant="outline"
             size="icon"
             onClick={toggleTheme}
-            className="relative overflow-hidden rounded-full"
+            className="h-10 w-10 rounded-xl border-border/50 bg-secondary/30 backdrop-blur-sm hover:bg-secondary/50 hover:scale-105 hover:-translate-y-0.5 transition-all duration-300"
         >
             <Sun
-                className={`size-[1.2rem] transition-all duration-300 ${
+                className={`h-5 w-5 transition-all duration-500 ${
                     isDark
                         ? "rotate-90 scale-0 opacity-0"
                         : "rotate-0 scale-100 opacity-100"
                 }`}
             />
             <Moon
-                className={`absolute size-[1.2rem] transition-all duration-300 ${
+                className={`absolute h-5 w-5 transition-all duration-500 ${
                     isDark
                         ? "rotate-0 scale-100 opacity-100"
                         : "-rotate-90 scale-0 opacity-0"
