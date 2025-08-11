@@ -45,7 +45,7 @@ export function Pong() {
         },
     });
 
-    // AI state for much easier opponent
+    // AI state
     const aiState = useRef({
         targetY: CANVAS_HEIGHT / 2,
         reactionDelay: 0,
@@ -113,17 +113,17 @@ export function Pong() {
             playerPaddle.y += PADDLE_SPEED;
         }
 
-        // Sophisticated AI with adaptive difficulty and human-like characteristics
+        // AI movement and difficulty logic
         const aiData = aiState.current;
         const aiCenter = aiPaddle.y + PADDLE_HEIGHT / 2;
 
-        // Calculate current ball speed for difficulty scaling
+        // Ball speed for difficulty scaling
         const currentBallSpeed = Math.sqrt(
             ball.dx * ball.dx + ball.dy * ball.dy
         );
-        const speedMultiplier = Math.min(currentBallSpeed / BALL_SPEED, 2.0); // Cap at 2x
+        const speedMultiplier = Math.min(currentBallSpeed / BALL_SPEED, 2.0); // cap at 2x
 
-        // Update confidence - much less forgiving
+        // Update AI confidence
         if (currentBallSpeed > aiData.lastBallSpeed * 1.1) {
             aiData.confidenceLevel = Math.max(
                 0.1,
@@ -133,52 +133,47 @@ export function Pong() {
             aiData.confidenceLevel = Math.min(
                 0.6,
                 aiData.confidenceLevel + 0.02
-            ); // Cap at 0.6
+            ); // cap at 0.6
         }
         aiData.lastBallSpeed = currentBallSpeed;
 
-        // Balanced AI speed that can reach corners
+        // AI speed calculation
         const fatigueMultiplier = Math.max(0.6, 1 - aiData.rallyCount * 0.015); // Less fatigue
-        const baseAiSpeed = 1.9 * aiData.confidenceLevel * fatigueMultiplier; // Faster base speed
+        const baseAiSpeed = 1.9 * aiData.confidenceLevel * fatigueMultiplier;
 
-        // Balanced reaction delays
+        // Reaction delay
         const adaptiveMaxDelay = Math.floor(
             25 + (speedMultiplier - 1) * 15 + (1 - aiData.confidenceLevel) * 12
         );
 
         aiData.updateCounter++;
-        if (
-            aiData.updateCounter %
-                Math.max(4, Math.floor(6 - speedMultiplier)) ===
-            0
-        ) {
-            // More frequent updates
+        if (aiData.updateCounter % Math.max(4, Math.floor(6 - speedMultiplier)) === 0) {
+            // Periodic update
             const currentBallDirection = ball.dx > 0 ? 1 : -1;
 
             if (
                 currentBallDirection !== aiData.lastBallDirection &&
                 currentBallDirection > 0
             ) {
-                // Ball coming toward AI - start new calculation
+                // Recalculate when ball approaches
                 aiData.reactionDelay = adaptiveMaxDelay;
                 aiData.rallyCount++;
 
-                // Balanced errors - not too large
-                const baseError = 45 + (speedMultiplier - 1) * 25; // Moderate base error
-                const confidenceAdjustedError =
-                    baseError * (2.0 - aiData.confidenceLevel); // Less error scaling
+                // Error baseline
+                const baseError = 45 + (speedMultiplier - 1) * 25;
+                const confidenceAdjustedError = baseError * (2.0 - aiData.confidenceLevel);
                 aiData.errorOffset =
                     (Math.random() - 0.5) * confidenceAdjustedError;
             }
             aiData.lastBallDirection = currentBallDirection;
 
             if (aiData.reactionDelay <= 0 && ball.dx > 0) {
-                // Sophisticated prediction with physics consideration
+                // Trajectory prediction
                 const timeToReachPaddle =
                     (aiPaddle.x - ball.x) / Math.abs(ball.dx);
                 let predictedY = ball.y + ball.dy * timeToReachPaddle;
 
-                // Account for potential wall bounces in prediction
+                // Account for wall bounces
                 if (predictedY < 0 || predictedY > CANVAS_HEIGHT) {
                     const bounceY =
                         predictedY < 0
@@ -187,19 +182,16 @@ export function Pong() {
                     predictedY = bounceY;
                 }
 
-                // Moderate prediction errors
-                const predictionAccuracy =
-                    aiData.confidenceLevel * (0.7 / speedMultiplier); // Better accuracy
-                const predictionError =
-                    (Math.random() - 0.5) * 60 * (2.5 - predictionAccuracy); // Smaller errors
+                // Prediction error
+                const predictionAccuracy = aiData.confidenceLevel * (0.7 / speedMultiplier);
+                const predictionError = (Math.random() - 0.5) * 60 * (2.5 - predictionAccuracy);
 
                 aiData.targetY =
                     predictedY + predictionError + aiData.errorOffset;
 
-                // Occasionally make larger errors
+                // Occasionally make larger errors (15% chance)
                 if (Math.random() < 0.15) {
-                    // 15% chance
-                    aiData.targetY += (Math.random() - 0.5) * 90; // Moderate large errors
+                    aiData.targetY += (Math.random() - 0.5) * 90;
                 }
 
                 // Clamp to valid range
@@ -208,7 +200,7 @@ export function Pong() {
                     Math.min(CANVAS_HEIGHT - PADDLE_HEIGHT / 2, aiData.targetY)
                 );
             } else if (ball.dx < 0) {
-                // Ball moving away - return to center with moderate variation
+                // Ball moving away: return to center
                 const returnToCenter = CANVAS_HEIGHT / 2;
                 const variation =
                     (Math.random() - 0.5) * (45 + aiData.rallyCount * 3); // Less wandering
@@ -222,14 +214,14 @@ export function Pong() {
             aiData.reactionDelay--;
         }
 
-        // Movement with adaptive precision for corner shots
+        // Movement toward target
         const targetDiff = aiData.targetY - aiCenter;
         const adaptiveDeadZone = 22 + (1 - aiData.confidenceLevel) * 12; // Smaller dead zone
 
         if (Math.abs(targetDiff) > adaptiveDeadZone) {
             const moveDirection = targetDiff > 0 ? 1 : -1;
 
-            // Better responsiveness for extreme positions
+            // Corner urgency
             const distanceFromCenter = Math.abs(aiCenter - CANVAS_HEIGHT / 2);
             const cornerUrgency = distanceFromCenter > 120 ? 1.4 : 1.0; // More urgency near edges
             const urgencyMultiplier =
@@ -237,9 +229,9 @@ export function Pong() {
 
             const movementSpeed = baseAiSpeed * urgencyMultiplier;
             const speedVariation =
-                (Math.random() - 0.5) * 0.8 * (2.5 - aiData.confidenceLevel); // Less variation
+                (Math.random() - 0.5) * 0.8 * (2.5 - aiData.confidenceLevel);
 
-            const finalSpeed = Math.max(0.6, movementSpeed + speedVariation); // Faster minimum
+            const finalSpeed = Math.max(0.6, movementSpeed + speedVariation);
             const newY = aiPaddle.y + moveDirection * finalSpeed;
             aiPaddle.y = Math.max(
                 0,
@@ -282,7 +274,7 @@ export function Pong() {
             ball.dx = -ball.dx;
             ball.dy = (ball.y - (aiPaddle.y + PADDLE_HEIGHT / 2)) / 20;
 
-            // Track AI success for performance feedback
+            // Track AI hits
             aiState.current.consecutiveHits++;
             aiState.current.lastMissTime = 0;
         }
@@ -313,13 +305,13 @@ export function Pong() {
                 ...history,
                 { type: "player_score", score: `${newPlayerScore}-${aiScore}` },
             ]);
-            // AI missed - decrease confidence and reset tracking
+            // On AI miss
             aiState.current.consecutiveHits = 0;
             aiState.current.rallyCount = 0;
             aiState.current.confidenceLevel = Math.max(
                 0.1,
                 aiState.current.confidenceLevel - 0.3
-            ); // Bigger penalty
+            ); // bigger penalty
             aiState.current.lastMissTime = aiState.current.updateCounter;
             if (newPlayerScore >= WINNING_SCORE) {
                 setGameState("gameOver");

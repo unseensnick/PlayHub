@@ -1,6 +1,6 @@
-# Minigames Collection
+# PlayHub
 
-A modern, minimalistic web application showcasing classic minigames with clean design and smooth user experience.
+A modern, minimalistic web application showcasing classic games with clean design and smooth user experience.
 
 ## Table of Contents
 
@@ -22,6 +22,7 @@ A modern, minimalistic web application showcasing classic minigames with clean d
 -   **Smooth Animations**: Enhanced UX with hover effects and transitions
 -   **Accessibility**: Keyboard navigation and screen reader support
 -   **Performance**: Optimized loading and rendering
+-   **Category Filtering**: Filter games by classic, arcade, or strategy
 
 ## Demo
 
@@ -70,8 +71,8 @@ Ensure you have the following installed:
 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/minigames-collection.git
-cd minigames-collection
+git clone https://github.com/your-username/playhub.git
+cd playhub
 ```
 
 2. Install dependencies
@@ -102,7 +103,7 @@ npm start
 ## Project Structure
 
 ```
-minigames-collection/
+playhub/
 ├── public/                      # Static files
 │   ├── next.svg
 │   └── favicon.ico
@@ -111,10 +112,22 @@ minigames-collection/
 │   │   ├── globals.css          # Global styles
 │   │   ├── layout.js            # Root layout
 │   │   ├── page.js              # Home page
-│   │   └── rock-paper-scissors/ # Game routes
+│   │   ├── space-invaders/      # Game routes
+│   │   │   └── page.js
+│   │   ├── rock-paper-scissors/
+│   │   │   └── page.js
+│   │   ├── pong/
+│   │   │   └── page.js
+│   │   ├── tic-tac-toe/
+│   │   │   └── page.js
+│   │   └── snake/
 │   │       └── page.js
 │   ├── components/              # React components
+│   │   ├── space-invaders.jsx
 │   │   ├── rock-paper-scissors.jsx
+│   │   ├── pong.jsx
+│   │   ├── tic-tac-toe.jsx
+│   │   ├── snake.jsx
 │   │   ├── theme-provider.jsx
 │   │   ├── theme-toggle.jsx
 │   │   └── ui/                  # Reusable UI components
@@ -124,25 +137,47 @@ minigames-collection/
 │       └── utils.js             # Utility functions
 ├── components.json              # shadcn/ui config
 ├── next.config.mjs             # Next.js configuration
-├── tailwind.config.js          # Tailwind CSS config
+├── postcss.config.mjs          # PostCSS configuration
 ├── package.json
 └── README.md
 ```
 
 ## Available Games
 
-### Rock Paper Scissors
+### Space Invaders
+-   **Type**: Arcade Shooter
+-   **Players**: 1
+-   **Duration**: 10-20 minutes
+-   **Difficulty**: Hard
+-   **Features**: Power-ups, progressive difficulty, classic arcade gameplay
 
+### Rock Paper Scissors
 -   **Type**: Strategy/Chance
 -   **Players**: 1 (vs Computer)
 -   **Duration**: 2-5 minutes
--   **Rounds**: Best of 5
+-   **Difficulty**: Easy
 -   **Features**: Game history, win/loss tracking
 
-### Coming Soon
+### Pong
+-   **Type**: Arcade Tennis
+-   **Players**: 1
+-   **Duration**: 3-8 minutes
+-   **Difficulty**: Medium
+-   **Features**: Classic paddle gameplay, skill-based scoring
 
--   **Tic Tac Toe**: Classic strategy game
--   **Snake**: Retro arcade game
+### Tic Tac Toe
+-   **Type**: Strategy
+-   **Players**: 1-2
+-   **Duration**: 1-3 minutes
+-   **Difficulty**: Easy
+-   **Features**: AI opponent, local multiplayer
+
+### Snake
+-   **Type**: Arcade
+-   **Players**: 1
+-   **Duration**: 5-15 minutes
+-   **Difficulty**: Medium
+-   **Features**: Growing snake mechanics, wall collision detection
 
 ## Development
 
@@ -179,11 +214,13 @@ npm run lint         # Run ESLint
       title: "New Game",
       description: "Game description",
       icon: GameIcon,
+      gradient: "from-[#color1] to-[#color2]",
       players: "1 Player",
       duration: "5-10 min",
       difficulty: "Medium",
       status: "available",
-      href: "/new-game"
+      href: "/new-game",
+      category: "arcade"
     }
     ```
 

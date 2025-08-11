@@ -7,7 +7,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-    title: "Minigames Collection",
+    title: "PlayHub - Play Classic Games",
     description: "A collection of fun and engaging minigames",
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
                     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-background/80 border-b border-border/50">
                         <div className="w-full px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
-                                {/* Logo - Left Side */}
+                                {/* Logo */}
                                 <div className="flex-shrink-0">
                                     <Link href="/" className="group">
                                         <h1 className="text-xl sm:text-2xl lg:text-3xl font-black bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent transition-transform duration-300 group-hover:scale-105">
@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
                                     </Link>
                                 </div>
 
-                                {/* Theme Toggle - Right Side */}
+                                {/* Theme Toggle */}
                                 <div className="flex-shrink-0">
                                     <ThemeToggle />
                                 </div>

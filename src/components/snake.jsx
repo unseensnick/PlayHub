@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Play, Pause, RotateCcw, Trophy } from "lucide-react";
+import { Pause, Play, RotateCcw, Trophy } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const BOARD_SIZE = 20;
 const CELL_SIZE = 20;
@@ -11,7 +11,7 @@ const CANVAS_WIDTH = BOARD_SIZE * CELL_SIZE;
 const CANVAS_HEIGHT = BOARD_SIZE * CELL_SIZE;
 const INITIAL_SNAKE = [{ x: 10, y: 10 }];
 const INITIAL_DIRECTION = { x: 1, y: 0 };
-const GAME_SPEED = 150; // milliseconds
+const GAME_SPEED = 150; // ms per tick
 
 export function Snake() {
     const canvasRef = useRef(null);
@@ -59,7 +59,7 @@ export function Snake() {
 
         const { snake, direction, nextDirection, food } = gameObjects.current;
 
-        // Update direction
+        // Apply queued direction
         gameObjects.current.direction = { ...nextDirection };
 
         // Calculate new head position
@@ -67,13 +67,13 @@ export function Snake() {
         head.x += direction.x;
         head.y += direction.y;
 
-        // Check wall collision
+        // Wall collision
         if (head.x < 0 || head.x >= BOARD_SIZE || head.y < 0 || head.y >= BOARD_SIZE) {
             setGameState("gameOver");
             return;
         }
 
-        // Check self collision
+        // Self collision
         if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
             setGameState("gameOver");
             return;
@@ -82,14 +82,14 @@ export function Snake() {
         // Add new head
         snake.unshift(head);
 
-        // Check food collision
+        // Food collision
         if (head.x === food.x && head.y === food.y) {
             const newScore = score + 10;
             setScore(newScore);
             setGameHistory(history => [...history, { type: "food", score: newScore }]);
             gameObjects.current.food = generateFood();
             
-            // Update high score
+            // High score
             if (newScore > highScore) {
                 setHighScore(newScore);
             }

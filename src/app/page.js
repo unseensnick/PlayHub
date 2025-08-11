@@ -157,7 +157,7 @@ function GameCard({ game }) {
             `}
             data-category={game.category}
         >
-            {/* Top gradient bar with center expansion animation */}
+            {/* Top gradient bar */}
             <div className="absolute top-0 left-0 right-0 h-1 overflow-hidden">
                 <div
                     className={`
