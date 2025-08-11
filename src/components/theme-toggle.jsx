@@ -15,10 +15,10 @@ export function ThemeToggle() {
     }, []);
 
     if (!mounted) {
-        // Return a placeholder button during SSR/hydration
+        // Return a placeholder button during SSR/hydration to prevent mismatch
         return (
             <Button variant="outline" size="icon" disabled>
-                <Sun className="size-[1.2rem]" />
+                <div className="size-[1.2rem]" />
                 <span className="sr-only">Loading theme toggle</span>
             </Button>
         );
