@@ -20,7 +20,6 @@ A modern, minimalistic web application showcasing classic games with clean desig
 -   **Responsive Layout**: Optimized for mobile, tablet, and desktop devices
 -   **Game History**: Track progress and view game statistics
 -   **Smooth Animations**: Enhanced UX with hover effects and transitions
--   **Accessibility**: Keyboard navigation and screen reader support
 -   **Performance**: Optimized loading and rendering
 -   **Category Filtering**: Filter games by classic, arcade, or strategy
 
@@ -145,6 +144,7 @@ playhub/
 ## Available Games
 
 ### Space Invaders
+
 -   **Type**: Arcade Shooter
 -   **Players**: 1
 -   **Duration**: 10-20 minutes
@@ -152,6 +152,7 @@ playhub/
 -   **Features**: Power-ups, progressive difficulty, classic arcade gameplay
 
 ### Rock Paper Scissors
+
 -   **Type**: Strategy/Chance
 -   **Players**: 1 (vs Computer)
 -   **Duration**: 2-5 minutes
@@ -159,6 +160,7 @@ playhub/
 -   **Features**: Game history, win/loss tracking
 
 ### Pong
+
 -   **Type**: Arcade Tennis
 -   **Players**: 1
 -   **Duration**: 3-8 minutes
@@ -166,6 +168,7 @@ playhub/
 -   **Features**: Classic paddle gameplay, skill-based scoring
 
 ### Tic Tac Toe
+
 -   **Type**: Strategy
 -   **Players**: 1-2
 -   **Duration**: 1-3 minutes
@@ -173,6 +176,7 @@ playhub/
 -   **Features**: AI opponent, local multiplayer
 
 ### Snake
+
 -   **Type**: Arcade
 -   **Players**: 1
 -   **Duration**: 5-15 minutes
